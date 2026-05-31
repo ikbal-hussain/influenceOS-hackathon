@@ -2,7 +2,7 @@
 
 **CreatorBrief** is an AI-powered influencer discovery app that helps brands find the right micro-influencers for their campaigns. By analyzing creator profiles, engagement, niche, audience relevance, and web data, it surfaces ranked shortlists, campaign context, and paths to outreach—making influencer marketing faster and more data-driven.
 
-This frontend lives in the [influenceOS-hackathon](https://github.com/ikbal-hussain/influenceOS-hackathon) repository (hackathon submission). The API is [influenceOS-hackathon-backend](https://github.com/ikbal-hussain/influenceOS-hackathon-backend).
+Hackathon frontend for **CreatorBrief** ([GitHub](https://github.com/ikbal-hussain/influenceOS-hackathon)). Pair with the API repo ([backend](https://github.com/ikbal-hussain/influenceOS-hackathon-backend)). Default search platform in the UI is **YouTube**.
 
 ## Stack
 
@@ -26,7 +26,7 @@ Warm cream background with rose–orange gradients, serif headings, and rounded 
 
 The session storage key for the last discovery payload lives in `src/lib/discoverySnapshot.js` (`LAST_SEARCH_KEY`). `SearchPanel` (`src/components/SearchPanel.jsx`) collects niche, platform, location, audience type. On submit, the landing page calls discovery via **Anakin Wire** (`POST /api/v1/discovery/instagram` or `/youtube`) through `src/lib/discoveryApi.js` (`searchCreators`), stores the response in `sessionStorage`, and navigates to `/dashboard`. Response `stages.wireUsed` and `stages.wireActionId` prove Holocron ran.
 
-While the request is in flight, `LandingPage` mounts `DiscoveryLoader` (`src/components/DiscoveryLoader.jsx`) — a prominent panel with a spinner, an animated indeterminate progress bar, an elapsed-seconds counter, and rotating status lines. Discovery usually takes 15–30 s for Instagram; YouTube can take up to ~90 s while channels enrich.
+While the request is in flight, `LandingPage` mounts `DiscoveryLoader` (`src/components/DiscoveryLoader.jsx`) — a prominent panel with a spinner, an animated indeterminate progress bar, an elapsed-seconds counter, and rotating status lines. Discovery defaults to **YouTube** (often 60–90 s while channels enrich). Instagram is typically faster but uses Groq extraction.
 
 `DashboardPage` sorts rows by follower/subscriber count, links each card to `/influencer/:id`, and cleans markdown in snippets. `InfluencerDetailPage` branches on `row.platform`: Instagram calls `GET /api/v1/enrichment/instagram/:handle` when configured; YouTube shows channel metadata from discovery only.
 

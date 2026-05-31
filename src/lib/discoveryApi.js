@@ -19,12 +19,12 @@ function discoveryHeaders() {
 }
 
 function discoveryPathForPlatform(platform) {
-  const p = String(platform || 'Instagram').toLowerCase();
-  if (p === 'youtube') return '/api/v1/discovery/youtube';
-  return '/api/v1/discovery/instagram';
+  const p = String(platform || 'YouTube').toLowerCase();
+  if (p === 'instagram') return '/api/v1/discovery/instagram';
+  return '/api/v1/discovery/youtube';
 }
 
-/** Discovery via Anakin Wire (Holocron); platform = Instagram | YouTube */
+/** Discovery via Anakin Wire (Holocron); platform = YouTube | Instagram */
 export async function searchCreators(query, { signal } = {}) {
   const url = `${API_BASE}${discoveryPathForPlatform(query.platform)}`
   const res = await fetch(url, {

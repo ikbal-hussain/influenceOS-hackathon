@@ -57,8 +57,8 @@ export default function SiteFooter() {
               CreatorBrief
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-stone-400">
-              AI-assisted creator discovery for brands—match on niche, place, and audience, not
-              vanity metrics. Built as a hackathon prototype.
+              CreatorBrief matches brands to creators by niche, place, and audience—not follower
+              counts alone. Hackathon build powered by Anakin Wire.
             </p>
           </div>
 

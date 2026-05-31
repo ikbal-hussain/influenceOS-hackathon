@@ -1,3 +1,4 @@
+/** CreatorBrief logomark (gradient monogram). */
 const sizeClass = {
   md: 'h-9 w-9 text-sm',
   sm: 'h-8 w-8 text-xs',

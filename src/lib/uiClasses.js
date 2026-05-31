@@ -1,4 +1,4 @@
-/** Shared UI tokens — warm editorial theme (rose / stone / amber). */
+/** CreatorBrief — shared UI tokens (warm editorial: rose / stone / amber). */
 
 export const inputClass =
   'w-full rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-800 shadow-sm outline-none transition placeholder:text-stone-400 focus:border-rose-400 focus:ring-2 focus:ring-rose-100'

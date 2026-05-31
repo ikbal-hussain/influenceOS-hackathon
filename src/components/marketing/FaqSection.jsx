@@ -3,7 +3,7 @@ import SectionHeader from './SectionHeader.jsx'
 const faqs = [
   {
     q: 'Which platforms are supported?',
-    a: 'Instagram and YouTube discovery both use Anakin Wire (Holocron). Instagram results are structured with Groq; optional live Instagram profile enrichment uses Apify when configured.',
+    a: 'YouTube and Instagram both use Anakin Wire (Holocron). YouTube returns channels directly; Instagram rows are structured with Groq. Optional Apify enrichment applies to Instagram detail pages only.',
   },
   {
     q: 'Where does creator data come from?',

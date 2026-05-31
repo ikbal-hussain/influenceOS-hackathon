@@ -1,4 +1,4 @@
-/** Session key shared by Landing (write), Dashboard & Influencer detail (read). */
+/** CreatorBrief session key — landing writes; dashboard & detail read. */
 export const LAST_SEARCH_KEY = 'creatorbrief:last-discovery'
 const LEGACY_SEARCH_KEY = 'influenceos:last-discovery'
 

@@ -104,7 +104,7 @@ export default function DashboardPage() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="min-w-0 flex-1">
             <p className="text-sm font-medium text-rose-700">
-              {String(query?.platform || 'instagram').toLowerCase() === 'youtube'
+              {String(query?.platform || 'youtube').toLowerCase() === 'youtube'
                 ? 'YouTube shortlist'
                 : 'Instagram shortlist'}
             </p>

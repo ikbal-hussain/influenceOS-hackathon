@@ -43,7 +43,7 @@ const steps = [
   {
     num: '04',
     title: 'Review and enrich',
-    body: 'Open your shortlist, compare creators, and optionally pull live Instagram stats when enrichment is configured.',
+    body: 'Open your shortlist, compare creators, and drill into YouTube or Instagram profiles from one place.',
     icon: (
       <path
         strokeLinecap="round"

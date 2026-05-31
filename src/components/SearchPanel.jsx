@@ -8,8 +8,8 @@ import {
 } from '../lib/uiClasses.js'
 
 const PLATFORM_OPTIONS = [
-  { value: 'Instagram', label: 'Instagram (Wire + Groq)', disabled: false },
   { value: 'YouTube', label: 'YouTube (Wire)', disabled: false },
+  { value: 'Instagram', label: 'Instagram (Wire + Groq)', disabled: false },
   { value: 'TikTok', label: 'TikTok — coming soon', disabled: true },
   { value: 'LinkedIn', label: 'LinkedIn — coming soon', disabled: true },
   { value: 'X', label: 'X (Twitter) — coming soon', disabled: true },
@@ -31,7 +31,7 @@ function buildPreview({ niche, platform, location, audienceType }) {
 
 const initialForm = {
   niche: '',
-  platform: 'Instagram',
+  platform: 'YouTube',
   location: '',
   audienceType: '',
 }
@@ -110,8 +110,8 @@ export default function SearchPanel({ onSearch, isLoading = false, error = null 
                 ))}
               </select>
               <p className="mt-1.5 text-xs text-stone-500">
-                Discovery runs on Anakin Wire (Holocron). YouTube uses Wire directly; Instagram uses
-                Wire + Groq to extract handles.
+                Default is YouTube (fastest path on Wire). Instagram uses Wire + Groq to extract
+                @handles from results.
               </p>
             </div>
             <div>

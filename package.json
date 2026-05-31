@@ -1,5 +1,6 @@
 {
   "name": "creatorbrief",
+  "description": "CreatorBrief — brand creator discovery (hackathon frontend)",
   "private": true,
   "version": "0.0.0",
   "type": "module",

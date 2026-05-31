@@ -55,7 +55,7 @@ export default function LandingPage() {
         niche: payload.niche,
         location: payload.location,
         audienceType: payload.audienceType,
-        platform: payload.platform || 'Instagram',
+        platform: payload.platform || 'YouTube',
       })
       const snapshot = { data, query: payload, fetchedAt: Date.now() }
       try {
@@ -74,12 +74,12 @@ export default function LandingPage() {
   return (
     <>
       <section className="mb-12 text-center md:text-left">
-        <p className={`mb-4 ${eyebrow}`}>Creator discovery for brands</p>
+        <p className={`mb-4 ${eyebrow}`}>CreatorBrief · discovery for brands</p>
         <h1 className={`mb-4 ${headingDisplay}`}>
           The right creators for your next campaign
         </h1>
         <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-stone-600 md:mx-0">
-          CreatorBrief surfaces Instagram and YouTube creators who match your niche, market,
+          CreatorBrief surfaces YouTube and Instagram creators who match your niche, market,
           and audience—with evidence and context you can act on today.
         </p>
         <ul className="flex flex-wrap justify-center gap-3 md:justify-start">
