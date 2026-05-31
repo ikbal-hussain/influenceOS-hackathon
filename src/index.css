@@ -1,1 +1,49 @@
 @import "tailwindcss";
+
+@theme {
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background-color: #faf6f2;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 0% -10%, rgba(251, 113, 133, 0.14), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(251, 191, 36, 0.12), transparent),
+    radial-gradient(ellipse 50% 30% at 50% 100%, rgba(244, 114, 182, 0.08), transparent);
+  color: #44403c;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes shimmer-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-shimmer-bar {
+  animation: shimmer-bar 1.6s ease-in-out infinite;
+}
+
+.animate-float-soft {
+  animation: float-soft 3s ease-in-out infinite;
+}

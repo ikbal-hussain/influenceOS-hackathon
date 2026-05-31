@@ -1,19 +1,16 @@
 const sizeClass = {
-  md: 'h-8 w-8',
-  sm: 'h-7 w-7',
+  md: 'h-9 w-9 text-sm',
+  sm: 'h-8 w-8 text-xs',
 }
 
-/**
- * Favicon as brand mark; decorative when used next to the wordmark inside the same link.
- */
 export default function BrandMark({ size = 'md', className = '' }) {
   const dim = sizeClass[size] || sizeClass.md
   return (
-    <img
-      src="/favicon.svg"
-      alt=""
+    <span
       aria-hidden="true"
-      className={`shrink-0 rounded-sm ${dim} ${className}`.trim()}
-    />
+      className={`inline-flex shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-rose-500 to-orange-400 font-bold text-white shadow-md shadow-rose-400/35 ${dim} ${className}`.trim()}
+    >
+      IO
+    </span>
   )
 }

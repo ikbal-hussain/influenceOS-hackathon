@@ -10,7 +10,7 @@ InfluenceOS is an AI-powered influencer discovery platform that helps brands fin
 
 ## UI
 
-Cool zinc neutrals, teal accent, monospace on the shell only — utilitarian but polished. Global chrome (header, footer, nav) lives in `src/components/AppLayout.jsx`, which wraps every route so the site footer stays consistent. The header and footer brand row use `src/components/BrandMark.jsx`, which displays `public/favicon.svg` next to the InfluenceOS wordmark. The dashboard uses a shortlist hero (chips + count), card rows with avatar initials, and teal primary actions.
+Warm cream background with rose–orange gradients, serif headings, and rounded “editorial” cards (no zinc/teal utilitarian theme). Shared tokens live in `src/lib/uiClasses.js`. Global chrome is in `src/components/AppLayout.jsx`; the brand mark is a gradient “IO” badge in `src/components/BrandMark.jsx`. The shortlist page uses soft gradient heroes, rose chips, and pill-shaped primary buttons.
 
 ### Pages
 

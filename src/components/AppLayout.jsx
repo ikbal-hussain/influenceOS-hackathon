@@ -3,35 +3,39 @@ import BrandMark from './BrandMark.jsx'
 import SiteFooter from './SiteFooter.jsx'
 
 const navLinkClass = ({ isActive }) =>
-  `transition-colors ${
+  `rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
     isActive
-      ? 'text-zinc-900 dark:text-zinc-50'
-      : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'
+      ? 'bg-rose-100 text-rose-800'
+      : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
   }`
 
 export default function AppLayout() {
   return (
-    <div className="flex min-h-svh flex-col bg-zinc-50 text-zinc-700 antialiased dark:bg-zinc-950 dark:text-zinc-400">
-      <header className="flex items-center justify-between gap-4 border-b-2 border-zinc-300 bg-zinc-50 px-5 py-3 dark:border-zinc-800 dark:bg-zinc-950">
-        <Link
-          to="/"
-          className="flex items-center gap-2 text-base font-extrabold uppercase tracking-[-0.045em] text-zinc-900 dark:text-zinc-50"
-        >
-          <BrandMark size="md" />
-          InfluenceOS
-        </Link>
-        <nav className="flex gap-5 text-sm font-medium" aria-label="Primary">
-          <NavLink to="/" end className={navLinkClass}>
-            Discovery
-          </NavLink>
-          <NavLink to="/dashboard" className={navLinkClass}>
-            Dashboard
-          </NavLink>
-          <span className="text-zinc-500">Campaigns</span>
-        </nav>
+    <div className="flex min-h-svh flex-col text-stone-700">
+      <header className="sticky top-0 z-20 border-b border-stone-200/80 bg-white/75 px-5 py-3 shadow-sm shadow-stone-200/30 backdrop-blur-md">
+        <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4">
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 font-serif text-lg font-medium tracking-tight text-stone-900"
+          >
+            <BrandMark size="md" />
+            InfluenceOS
+          </Link>
+          <nav className="flex items-center gap-1" aria-label="Primary">
+            <NavLink to="/" end className={navLinkClass}>
+              Discover
+            </NavLink>
+            <NavLink to="/dashboard" className={navLinkClass}>
+              Shortlist
+            </NavLink>
+            <span className="hidden rounded-full px-3 py-1.5 text-sm text-stone-400 sm:inline">
+              Campaigns soon
+            </span>
+          </nav>
+        </div>
       </header>
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-8">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-10">
         <Outlet />
       </main>
 

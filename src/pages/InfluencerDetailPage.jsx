@@ -12,6 +12,7 @@ import {
   cleanInstagramHandle,
 } from '../lib/discoveryApi.js'
 import { readDiscoverySnapshotFromStorage } from '../lib/discoverySnapshot.js'
+import { btnPrimary, btnSecondary, cardSurface, linkAccent } from '../lib/uiClasses.js'
 
 function useDiscoverySnapshot() {
   const location = useLocation()
@@ -67,14 +68,16 @@ function DetailItem({ label, value, href }) {
   const formatted = formatDetailValue(value)
   if (!formatted) return null
   return (
-    <div className="min-w-0 rounded-xl border border-zinc-200 bg-white/75 p-3 dark:border-zinc-700 dark:bg-zinc-900/55">
-      <dt className="text-xs font-medium uppercase tracking-wide text-zinc-500">{label}</dt>
-      <dd className="mt-1 break-words text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+    <div className="min-w-0 rounded-2xl bg-stone-50 p-3 ring-1 ring-stone-100">
+      <dt className="text-xs font-medium text-stone-500">{label}</dt>
+      <dd className="mt-1 break-words text-sm font-semibold text-stone-900">
         {href ? (
-          <a href={href} target="_blank" rel="noreferrer noopener" className="text-teal-700 underline dark:text-teal-400">
+          <a href={href} target="_blank" rel="noreferrer noopener" className={linkAccent}>
             {formatted}
           </a>
-        ) : formatted}
+        ) : (
+          formatted
+        )}
       </dd>
     </div>
   )
@@ -100,14 +103,14 @@ function ProfileImage({ profile, row, loading }) {
 
   const index = imageState.key === candidatesKey ? imageState.index : 0
   const src = candidates[index]
-  const loadingRing = loading ? 'ring-2 ring-teal-400/55 animate-pulse' : ''
+  const loadingRing = loading ? 'ring-2 ring-rose-300 animate-pulse' : ''
   if (src) {
     return (
-      <div className={`shrink-0 rounded-2xl ${loadingRing}`}>
+      <div className={`shrink-0 rounded-3xl ${loadingRing}`}>
         <img
           src={src}
           alt={profile?.fullName || row.name || 'Creator profile'}
-          className="h-28 w-28 shrink-0 rounded-2xl object-cover ring-2 ring-teal-500/30"
+          className="h-28 w-28 shrink-0 rounded-3xl object-cover ring-2 ring-white shadow-lg"
           referrerPolicy="no-referrer"
           onError={() => setImageState({ key: candidatesKey, index: index + 1 })}
         />
@@ -117,7 +120,7 @@ function ProfileImage({ profile, row, loading }) {
 
   return (
     <div
-      className={`flex h-28 w-28 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-zinc-100 to-zinc-200 text-2xl font-bold text-teal-800 dark:from-zinc-800 dark:to-zinc-900 dark:text-teal-300 ${loading ? 'animate-pulse ring-2 ring-teal-400/55' : ''}`}
+      className={`flex h-28 w-28 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-br from-rose-100 to-orange-100 text-2xl font-bold text-rose-800 shadow-md ${loading ? 'animate-pulse ring-2 ring-rose-300' : ''}`}
       aria-hidden
     >
       {(row.name || '?').slice(0, 2).toUpperCase()}
@@ -135,19 +138,18 @@ function LiveProfileLoadingBanner() {
       role="status"
       aria-busy="true"
       aria-live="polite"
-      className="mt-4 rounded-xl border border-teal-200/90 bg-gradient-to-br from-white/90 to-teal-50/50 p-4 shadow-sm dark:border-teal-800/50 dark:from-zinc-900/60 dark:to-teal-950/20"
+      className="mt-4 rounded-2xl bg-gradient-to-br from-rose-50 to-orange-50 p-5 ring-1 ring-rose-100"
     >
-      <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">Pulling the latest profile…</p>
-      <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">Stats and bio will land in a moment.</p>
+      <p className="text-sm font-medium text-stone-800">Loading live profile…</p>
+      <p className="mt-1 text-xs text-stone-500">Stats and bio will appear shortly.</p>
       <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-3">
-        <div className="h-12 animate-pulse rounded-lg bg-zinc-200/90 dark:bg-zinc-700/80" />
-        <div className="h-12 animate-pulse rounded-lg bg-zinc-200/90 dark:bg-zinc-700/80" />
-        <div className="h-12 animate-pulse rounded-lg bg-zinc-200/90 dark:bg-zinc-700/80" />
+        <div className="h-12 animate-pulse rounded-xl bg-stone-200/80" />
+        <div className="h-12 animate-pulse rounded-xl bg-stone-200/80" />
+        <div className="h-12 animate-pulse rounded-xl bg-stone-200/80" />
       </div>
       <div className="mt-4 space-y-2">
-        <div className="h-2.5 w-full max-w-md animate-pulse rounded bg-zinc-200 dark:bg-zinc-700" />
-        <div className="h-2.5 w-2/3 max-w-sm animate-pulse rounded bg-zinc-200 dark:bg-zinc-700" />
-        <div className="h-2.5 w-1/2 max-w-xs animate-pulse rounded bg-zinc-200 dark:bg-zinc-700" />
+        <div className="h-2.5 w-full max-w-md animate-pulse rounded bg-stone-200" />
+        <div className="h-2.5 w-2/3 max-w-sm animate-pulse rounded bg-stone-200" />
       </div>
     </div>
   )
@@ -169,7 +171,7 @@ function buildInstagramEmbedUrl(rawUrl) {
 function LatestPostCard({ post, index }) {
   const embedUrl = buildInstagramEmbedUrl(post.url)
   return (
-    <article className="mx-auto w-full max-w-sm overflow-hidden rounded-lg border border-zinc-200 bg-white/75 dark:border-zinc-700 dark:bg-zinc-900/55">
+    <article className="mx-auto w-full max-w-sm overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
       {embedUrl ? (
         <div className="max-h-[260px] overflow-hidden">
           <iframe
@@ -181,18 +183,22 @@ function LatestPostCard({ post, index }) {
           />
         </div>
       ) : null}
-      <div className="p-2">
-        <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-zinc-500">
+      <div className="p-3">
+        <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-stone-500">
           {post.type ? <span>{post.type}</span> : null}
           {post.timestamp ? <span>{formatDateTime(post.timestamp)}</span> : null}
           {post.likesCount != null ? <span>{post.likesCount.toLocaleString()} likes</span> : null}
-          {post.commentsCount != null ? <span>{post.commentsCount.toLocaleString()} comments</span> : null}
+          {post.commentsCount != null ? (
+            <span>{post.commentsCount.toLocaleString()} comments</span>
+          ) : null}
         </div>
         {post.caption ? (
-          <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-zinc-700 dark:text-zinc-300">{post.caption}</p>
+          <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-stone-700">
+            {post.caption}
+          </p>
         ) : null}
         {post.url ? (
-          <a href={post.url} target="_blank" rel="noreferrer noopener" className="mt-1.5 inline-flex text-xs font-semibold text-teal-700 underline dark:text-teal-400">
+          <a href={post.url} target="_blank" rel="noreferrer noopener" className={`mt-2 inline-flex text-xs ${linkAccent}`}>
             Open post
           </a>
         ) : null}
@@ -203,7 +209,6 @@ function LatestPostCard({ post, index }) {
 
 const ENRICHMENT_FETCH_TIMEOUT_MS = 90_000
 
-/** Fetch only runs when mounted; parent uses key={username} to reset on row change. */
 function InstaProfileLiveBlock({ username, onLiveProfile, onLoadingChange }) {
   const [enrichment, setEnrichment] = useState(null)
   const [enrichError, setEnrichError] = useState(null)
@@ -254,50 +259,82 @@ function InstaProfileLiveBlock({ username, onLiveProfile, onLoadingChange }) {
 
   const live = enrichment?.profile
   const hiddenDetailKeys = ['id', 'igtvVideoCount', 'latestPosts', 'url', 'externalUrlShimmed']
-  const extraDetails = Object.entries(live?.details ?? {}).filter(([key]) => !hiddenDetailKeys.includes(key))
+  const extraDetails = Object.entries(live?.details ?? {}).filter(
+    ([key]) => !hiddenDetailKeys.includes(key),
+  )
   const latestPosts = Array.isArray(live?.details?.latestPosts) ? live.details.latestPosts : []
 
   return (
     <>
       {enrichLoading ? <LiveProfileLoadingBanner /> : null}
       {enrichError ? (
-        <p className="mt-3 text-sm text-amber-800 dark:text-amber-200">{enrichError}</p>
+        <p className="mt-3 rounded-xl bg-amber-50 px-3 py-2 text-sm text-amber-900 ring-1 ring-amber-100">
+          {enrichError}
+        </p>
       ) : null}
       {live && !enrichLoading ? (
         <>
           <DetailGrid>
-            <DetailItem label="Followers" value={live.followersCount == null ? null : formatFollowers(live.followersCount)} />
-            <DetailItem label="Followers exact" value={live.followersCount} />
+            <DetailItem
+              label="Followers"
+              value={live.followersCount == null ? null : formatFollowers(live.followersCount)}
+            />
+            <DetailItem label="Followers (exact)" value={live.followersCount} />
             <DetailItem label="Following" value={live.followsCount} />
             <DetailItem label="Posts" value={live.postsCount} />
             <DetailItem label="Highlights" value={live.highlightReelCount} />
           </DetailGrid>
 
           {live.biography ? (
-            <p className="mt-4 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">{live.biography}</p>
+            <p className="mt-4 text-sm leading-relaxed text-stone-700">{live.biography}</p>
           ) : null}
 
-          <div className="mt-3 flex flex-wrap gap-2 text-xs text-zinc-500">
-            {live.isVerified ? <span className="rounded-full bg-zinc-200 px-2 py-0.5 dark:bg-zinc-700">Verified</span> : null}
-            {live.isPrivate ? <span className="rounded-full bg-red-100 px-2 py-0.5 font-semibold text-red-700 dark:bg-red-950/60 dark:text-red-300">Private</span> : null}
-            {live.isBusiness ? <span className="rounded-full bg-zinc-200 px-2 py-0.5 dark:bg-zinc-700">Business</span> : null}
+          <div className="mt-3 flex flex-wrap gap-2 text-xs">
+            {live.isVerified ? (
+              <span className="rounded-full bg-blue-50 px-2.5 py-1 font-medium text-blue-800 ring-1 ring-blue-100">
+                Verified
+              </span>
+            ) : null}
+            {live.isPrivate ? (
+              <span className="rounded-full bg-red-50 px-2.5 py-1 font-medium text-red-800 ring-1 ring-red-100">
+                Private
+              </span>
+            ) : null}
+            {live.isBusiness ? (
+              <span className="rounded-full bg-stone-100 px-2.5 py-1 font-medium text-stone-700">
+                Business
+              </span>
+            ) : null}
             {live.externalUrl ? (
-              <a href={live.externalUrl} target="_blank" rel="noreferrer noopener" className="text-teal-700 underline dark:text-teal-400">
+              <a
+                href={live.externalUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={linkAccent}
+              >
                 Link in bio
               </a>
             ) : null}
           </div>
 
           <section className="mt-6" aria-labelledby="account-signals-heading">
-            <h3 id="account-signals-heading" className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-              Account, business, and contact
+            <h3 id="account-signals-heading" className="text-sm font-medium text-stone-600">
+              Account & contact
             </h3>
             <DetailGrid>
               <DetailItem label="Account type" value={live.accountType} />
               <DetailItem label="Category" value={live.categoryName} />
               <DetailItem label="Business category" value={live.businessCategoryName} />
-              <DetailItem label="Business email" value={live.businessEmail} href={live.businessEmail ? `mailto:${live.businessEmail}` : null} />
-              <DetailItem label="Business phone" value={live.businessPhoneNumber} href={live.businessPhoneNumber ? `tel:${live.businessPhoneNumber}` : null} />
+              <DetailItem
+                label="Business email"
+                value={live.businessEmail}
+                href={live.businessEmail ? `mailto:${live.businessEmail}` : null}
+              />
+              <DetailItem
+                label="Business phone"
+                value={live.businessPhoneNumber}
+                href={live.businessPhoneNumber ? `tel:${live.businessPhoneNumber}` : null}
+              />
               <DetailItem label="Verified" value={live.isVerified} />
               <DetailItem label="Private" value={live.isPrivate} />
               <DetailItem label="Business account" value={live.isBusiness} />
@@ -308,12 +345,17 @@ function InstaProfileLiveBlock({ username, onLiveProfile, onLoadingChange }) {
 
           {extraDetails.length > 0 ? (
             <section className="mt-6" aria-labelledby="api-details-heading">
-              <h3 id="api-details-heading" className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                Additional API fields
+              <h3 id="api-details-heading" className="text-sm font-medium text-stone-600">
+                More fields
               </h3>
               <DetailGrid>
                 {extraDetails.map(([key, value]) => (
-                  <DetailItem key={key} label={labelForKey(key)} value={value} href={String(value).startsWith('http') ? String(value) : null} />
+                  <DetailItem
+                    key={key}
+                    label={labelForKey(key)}
+                    value={value}
+                    href={String(value).startsWith('http') ? String(value) : null}
+                  />
                 ))}
               </DetailGrid>
             </section>
@@ -321,10 +363,10 @@ function InstaProfileLiveBlock({ username, onLiveProfile, onLoadingChange }) {
 
           {latestPosts.length > 0 ? (
             <section className="mt-6" aria-labelledby="latest-posts-heading">
-              <h3 id="latest-posts-heading" className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                Latest posts
+              <h3 id="latest-posts-heading" className="text-sm font-medium text-stone-600">
+                Recent posts
               </h3>
-              <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {latestPosts.map((post, index) => (
                   <LatestPostCard key={post.id || post.url || index} post={post} index={index} />
                 ))}
@@ -332,16 +374,15 @@ function InstaProfileLiveBlock({ username, onLiveProfile, onLoadingChange }) {
             </section>
           ) : null}
 
-          <p className="mt-4 text-[11px] text-zinc-500 dark:text-zinc-500">
-            Refreshed {live.fetchedAt ? new Date(live.fetchedAt).toLocaleString() : ''}. Counts are drawn from
-            Instagram when available and may not match your search snapshot.
+          <p className="mt-4 text-xs text-stone-500">
+            Refreshed {live.fetchedAt ? new Date(live.fetchedAt).toLocaleString() : ''}. Live counts
+            may differ from your search snapshot.
           </p>
         </>
       ) : null}
       {!enrichLoading && !live && !enrichError ? (
-        <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-          We couldn&apos;t load a live profile for this account. Try again in a moment, or open Instagram
-          directly.
+        <p className="mt-3 text-sm text-stone-600">
+          We couldn&apos;t load a live profile. Try again or open Instagram directly.
         </p>
       ) : null}
     </>
@@ -369,14 +410,9 @@ export default function InfluencerDetailPage() {
   if (!snapshot) {
     return (
       <section className="mt-4 text-center">
-        <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">
-          No discovery session found. Run a search first.
-        </p>
-        <Link
-          to="/"
-          className="inline-flex rounded-xl bg-teal-600 px-5 py-2.5 text-sm font-semibold text-white dark:bg-teal-500 dark:text-zinc-950"
-        >
-          Discovery
+        <p className="mb-4 text-sm text-stone-600">No discovery session found. Run a search first.</p>
+        <Link to="/" className={btnPrimary}>
+          Discover creators
         </Link>
       </section>
     )
@@ -385,20 +421,15 @@ export default function InfluencerDetailPage() {
   if (!row) {
     return (
       <section className="mt-4">
-        <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">
-          This creator is not in your current results (open from the dashboard after a search).
+        <p className="mb-4 text-sm text-stone-600">
+          This creator isn&apos;t in your current results—open them from the shortlist after a
+          search.
         </p>
         <div className="flex flex-wrap gap-3">
-          <Link
-            to="/dashboard"
-            className="inline-flex rounded-xl bg-teal-600 px-5 py-2.5 text-sm font-semibold text-white dark:bg-teal-500 dark:text-zinc-950"
-          >
-            Dashboard
+          <Link to="/dashboard" className={btnPrimary}>
+            Shortlist
           </Link>
-          <Link
-            to="/"
-            className="inline-flex rounded-xl border border-zinc-300 px-5 py-2.5 text-sm font-semibold dark:border-zinc-600"
-          >
+          <Link to="/" className={btnSecondary}>
             New search
           </Link>
         </div>
@@ -406,9 +437,7 @@ export default function InfluencerDetailPage() {
     )
   }
 
-  return (
-    <InstaProfileDetailInner row={row} query={query} />
-  )
+  return <InstaProfileDetailInner row={row} query={query} />
 }
 
 function InstaProfileDetailInner({ row, query }) {
@@ -421,37 +450,39 @@ function InstaProfileDetailInner({ row, query }) {
     setLiveEnrichLoading(loading)
   }, [])
   const searchContext = query?.niche
-    ? `Search context: ${query.niche}${query.location ? ` - ${query.location}` : ''}`
+    ? `Brief: ${query.niche}${query.location ? ` · ${query.location}` : ''}`
     : null
 
   return (
     <article className="space-y-8">
-      <nav className="text-sm text-zinc-500 dark:text-zinc-400">
-        <Link to="/dashboard" className="text-teal-700 hover:underline dark:text-teal-400">
-          Dashboard
+      <nav className="text-sm text-stone-500">
+        <Link to="/dashboard" className={linkAccent}>
+          Shortlist
         </Link>
-        <span aria-hidden className="mx-2">
+        <span aria-hidden className="mx-2 text-stone-300">
           /
         </span>
-        <span className="text-zinc-700 dark:text-zinc-300">@{row.handle || 'creator'}</span>
+        <span className="text-stone-700">@{row.handle || 'creator'}</span>
       </nav>
 
-      {searchContext ? (
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">{searchContext}</p>
-      ) : null}
+      {searchContext ? <p className="text-sm text-stone-500">{searchContext}</p> : null}
 
       <header
-        className={`flex flex-col gap-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-shadow dark:border-zinc-700 dark:bg-zinc-900/80 sm:flex-row sm:items-start ${
-          liveEnrichLoading ? 'ring-1 ring-teal-400/35 dark:ring-teal-500/25' : ''
+        className={`flex flex-col gap-6 ${cardSurface} p-6 sm:flex-row sm:items-start ${
+          liveEnrichLoading ? 'ring-2 ring-rose-200' : ''
         }`}
       >
-        <ProfileImage profile={liveProfile} row={row} loading={liveEnrichLoading && Boolean(enrichHandle)} />
+        <ProfileImage
+          profile={liveProfile}
+          row={row}
+          loading={liveEnrichLoading && Boolean(enrichHandle)}
+        />
         <div className="min-w-0 flex-1">
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+          <h1 className="font-serif text-2xl font-medium text-stone-900">
             {liveProfile?.fullName || row.name}
           </h1>
           {row.handle ? (
-            <p className="mt-1 text-teal-700 dark:text-teal-400">@{row.handle}</p>
+            <p className="mt-1 text-sm font-medium text-rose-600">@{row.handle}</p>
           ) : null}
           <div className="mt-4 flex flex-wrap gap-3">
             {row.profileUrl ? (
@@ -459,7 +490,7 @@ function InstaProfileDetailInner({ row, query }) {
                 href={row.profileUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white dark:bg-teal-500 dark:text-zinc-950"
+                className={btnPrimary}
               >
                 Open on Instagram
               </a>
@@ -468,35 +499,38 @@ function InstaProfileDetailInner({ row, query }) {
         </div>
       </header>
 
-      <section aria-labelledby="discovery-heading" className="rounded-2xl border border-zinc-200 bg-zinc-50/80 p-6 dark:border-zinc-700 dark:bg-zinc-900/40">
-        <h2 id="discovery-heading" className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+      <section aria-labelledby="discovery-heading" className={`${cardSurface} p-6`}>
+        <h2 id="discovery-heading" className="text-sm font-medium text-rose-600">
           From your search
         </h2>
         <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
           <div>
-            <dt className="text-zinc-500">Followers (discovery)</dt>
-            <dd className="font-semibold tabular-nums text-zinc-900 dark:text-zinc-100">
+            <dt className="text-stone-500">Followers (discovery)</dt>
+            <dd className="font-semibold tabular-nums text-stone-900">
               {formatFollowers(row.followerCount)}
             </dd>
           </div>
           {row.publishedAt ? (
             <div>
-              <dt className="text-zinc-500">Published</dt>
-              <dd className="font-medium text-zinc-900 dark:text-zinc-100">{String(row.publishedAt)}</dd>
+              <dt className="text-stone-500">Published</dt>
+              <dd className="font-medium text-stone-900">{String(row.publishedAt)}</dd>
             </div>
           ) : null}
           <div>
-            <dt className="text-zinc-500">Platform</dt>
-            <dd className="font-medium text-zinc-900 dark:text-zinc-100">{row.platform || 'instagram'}</dd>
+            <dt className="text-stone-500">Platform</dt>
+            <dd className="font-medium text-stone-900">{row.platform || 'instagram'}</dd>
           </div>
         </dl>
         {row.snippet ? (
-          <p className="mt-4 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">{row.snippet}</p>
+          <p className="mt-4 text-sm leading-relaxed text-stone-700">{row.snippet}</p>
         ) : null}
       </section>
 
-      <section aria-labelledby="live-heading" className="rounded-2xl border border-teal-500/25 bg-gradient-to-br from-teal-50/80 to-white p-6 dark:border-teal-500/20 dark:from-teal-950/30 dark:to-zinc-900">
-        <h2 id="live-heading" className="text-sm font-semibold uppercase tracking-wide text-teal-800 dark:text-teal-300">
+      <section
+        aria-labelledby="live-heading"
+        className="rounded-3xl border border-rose-100 bg-gradient-to-br from-rose-50/90 via-white to-orange-50/80 p-6 shadow-md shadow-rose-100/40"
+      >
+        <h2 id="live-heading" className="text-sm font-medium text-rose-700">
           Live profile
         </h2>
         {enrichHandle ? (
@@ -507,7 +541,7 @@ function InstaProfileDetailInner({ row, query }) {
             onLoadingChange={handleEnrichLoading}
           />
         ) : (
-          <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="mt-3 text-sm text-stone-600">
             {row.handle
               ? 'This Instagram handle is invalid, so a live profile can\u2019t be loaded.'
               : 'No Instagram handle on this row, so a live profile can\u2019t be loaded.'}
