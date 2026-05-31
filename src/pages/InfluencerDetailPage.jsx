@@ -492,7 +492,7 @@ function InstaProfileDetailInner({ row, query }) {
                 rel="noreferrer noopener"
                 className={btnPrimary}
               >
-                Open on Instagram
+                {row.platform === 'youtube' ? 'Open on YouTube' : 'Open on Instagram'}
               </a>
             ) : null}
           </div>

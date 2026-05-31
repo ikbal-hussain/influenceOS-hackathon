@@ -22,7 +22,7 @@ Warm cream background with rose–orange gradients, serif headings, and rounded 
 | `/dashboard` | `src/pages/DashboardPage.jsx`     | Ranked Instagram results from the backend.             |
 | `/influencer/:id` | `src/pages/InfluencerDetailPage.jsx` | Full row + optional live Instagram snapshot when enrichment is configured on the backend. |
 
-The session storage key for the last discovery payload lives in `src/lib/discoverySnapshot.js` (`LAST_SEARCH_KEY`). `SearchPanel` (`src/components/SearchPanel.jsx`) collects niche, platform, location, audience type. On submit, the landing page calls `POST /api/v1/discovery/instagram` via `src/lib/discoveryApi.js`, stores the response in `sessionStorage`, and navigates to `/dashboard`.
+The session storage key for the last discovery payload lives in `src/lib/discoverySnapshot.js` (`LAST_SEARCH_KEY`). `SearchPanel` (`src/components/SearchPanel.jsx`) collects niche, platform, location, audience type. On submit, the landing page calls discovery via **Anakin Wire** (`POST /api/v1/discovery/instagram` or `/youtube`) through `src/lib/discoveryApi.js` (`searchCreators`), stores the response in `sessionStorage`, and navigates to `/dashboard`. Response `stages.wireUsed` and `stages.wireActionId` prove Holocron ran.
 
 While the request is in flight, `LandingPage` mounts `DiscoveryLoader` (`src/components/DiscoveryLoader.jsx`) — a prominent panel with a spinner, an animated indeterminate progress bar, an elapsed-seconds counter, and rotating “heavy lift” status lines (generic copy, not literal pipeline steps). The discovery flow usually takes 15–30 s on a cold cache, so the loader is intentionally large.
 

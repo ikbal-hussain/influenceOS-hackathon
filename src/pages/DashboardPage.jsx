@@ -101,7 +101,11 @@ export default function DashboardPage() {
       <div className="mb-8 overflow-hidden rounded-3xl bg-gradient-to-br from-rose-100 via-orange-50 to-amber-50 p-6 ring-1 ring-rose-100 sm:p-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-medium text-rose-700">Instagram shortlist</p>
+            <p className="text-sm font-medium text-rose-700">
+              {String(query?.platform || 'instagram').toLowerCase() === 'youtube'
+                ? 'YouTube shortlist'
+                : 'Instagram shortlist'}
+            </p>
             <h1 id="dashboard-heading" className={`mt-2 ${headingDisplay}`}>
               Creators for your brief
             </h1>
@@ -182,7 +186,7 @@ export default function DashboardPage() {
                 <div className="flex shrink-0 flex-col gap-3 border-t border-stone-100 p-4 sm:w-44 sm:border-l sm:border-t-0 sm:items-end">
                   <div className="rounded-2xl bg-stone-50 px-4 py-3 text-center ring-1 ring-stone-100">
                     <p className="text-[10px] font-medium uppercase tracking-wider text-stone-500">
-                      Followers
+                      {it.platform === 'youtube' ? 'Subscribers' : 'Followers'}
                     </p>
                     <p className="mt-0.5 text-xl font-bold tabular-nums text-stone-900">
                       {formatFollowers(it.followerCount)}
@@ -196,7 +200,7 @@ export default function DashboardPage() {
                         rel="noreferrer noopener"
                         className={btnPrimary}
                       >
-                        Instagram
+                        {it.platform === 'youtube' ? 'YouTube' : 'Instagram'}
                       </a>
                     ) : null}
                     {it.sourceUrl && it.sourceUrl !== it.profileUrl ? (

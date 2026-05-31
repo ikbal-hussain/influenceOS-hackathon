@@ -16,8 +16,8 @@ const steps = [
   },
   {
     num: '02',
-    title: 'Gather web signals',
-    body: 'Anakin searches and scrapes public articles and profiles so results are grounded in real mentions.',
+    title: 'Run Anakin Wire',
+    body: 'Holocron executes a pre-built Wire action (e.g. YouTube search) and returns structured JSON—no custom scrapers.',
     icon: (
       <path
         strokeLinecap="round"
@@ -30,7 +30,7 @@ const steps = [
   {
     num: '03',
     title: 'Extract creators with AI',
-    body: 'Groq reads the sources and returns Instagram handles with evidence snippets—no invented usernames.',
+    body: 'Anakin Wire (Holocron) returns structured JSON from real sites; Groq extracts creator handles with evidence—no invented usernames.',
     icon: (
       <path
         strokeLinecap="round"

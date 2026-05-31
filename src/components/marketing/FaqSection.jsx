@@ -3,11 +3,11 @@ import SectionHeader from './SectionHeader.jsx'
 const faqs = [
   {
     q: 'Which platforms are supported?',
-    a: 'Instagram discovery and live profile enrichment are live today. Other platforms appear in the search form as roadmap items.',
+    a: 'Instagram and YouTube discovery both use Anakin Wire (Holocron). Instagram results are structured with Groq; optional live Instagram profile enrichment uses Apify when configured.',
   },
   {
     q: 'Where does creator data come from?',
-    a: 'Discovery combines public web search and article scraping (Anakin), structured extraction (Groq), and optional live Instagram profile data (Apify) when your backend is configured.',
+    a: 'Discovery calls Anakin Wire (Holocron) pre-built actions—e.g. YouTube search—then Groq extracts Instagram handles from Wire JSON when needed. Optional Apify enrichment loads live Instagram stats on the detail page.',
   },
   {
     q: 'Are handles verified or guessed?',

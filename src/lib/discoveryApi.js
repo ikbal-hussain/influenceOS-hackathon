@@ -18,6 +18,41 @@ function discoveryHeaders() {
   return headers
 }
 
+function discoveryPathForPlatform(platform) {
+  const p = String(platform || 'Instagram').toLowerCase();
+  if (p === 'youtube') return '/api/v1/discovery/youtube';
+  return '/api/v1/discovery/instagram';
+}
+
+/** Discovery via Anakin Wire (Holocron); platform = Instagram | YouTube */
+export async function searchCreators(query, { signal } = {}) {
+  const url = `${API_BASE}${discoveryPathForPlatform(query.platform)}`
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: discoveryHeaders(),
+    body: JSON.stringify(query),
+    signal,
+  })
+
+  let body = null
+  try {
+    body = await res.json()
+  } catch {
+    // ignore JSON parse errors; handled below
+  }
+
+  if (!res.ok) {
+    const message = body?.error || `Discovery request failed (${res.status})`
+    const err = new Error(message)
+    err.status = res.status
+    err.details = body?.details
+    err.stage = body?.stage
+    throw err
+  }
+  return body
+}
+
+/** @deprecated use searchCreators */
 export async function searchInstagramCreators(query, { signal } = {}) {
   const url = `${API_BASE}/api/v1/discovery/instagram`
   const res = await fetch(url, {

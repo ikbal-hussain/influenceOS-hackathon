@@ -7,7 +7,7 @@ import UseCasesSection from '../components/marketing/UseCasesSection.jsx'
 import FaqSection from '../components/marketing/FaqSection.jsx'
 import CtaBand from '../components/marketing/CtaBand.jsx'
 import SectionHeader from '../components/marketing/SectionHeader.jsx'
-import { searchInstagramCreators } from '../lib/discoveryApi.js'
+import { searchCreators } from '../lib/discoveryApi.js'
 import { LAST_SEARCH_KEY } from '../lib/discoverySnapshot.js'
 import { eyebrow, headingDisplay } from '../lib/uiClasses.js'
 
@@ -21,7 +21,7 @@ function buildLoaderSummary(query) {
 
 const heroStats = [
   { value: 'Minutes', label: 'to a ranked shortlist' },
-  { value: 'Evidence', label: 'backed Instagram handles' },
+  { value: 'Wire', label: 'powered by Anakin Holocron' },
   { value: 'Live', label: 'profile enrich optional' },
 ]
 
@@ -51,7 +51,7 @@ export default function LandingPage() {
     setIsLoading(true)
     setActiveQuery(payload)
     try {
-      const data = await searchInstagramCreators({
+      const data = await searchCreators({
         niche: payload.niche,
         location: payload.location,
         audienceType: payload.audienceType,

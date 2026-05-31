@@ -8,8 +8,8 @@ import {
 } from '../lib/uiClasses.js'
 
 const PLATFORM_OPTIONS = [
-  { value: 'Instagram', label: 'Instagram', disabled: false },
-  { value: 'YouTube', label: 'YouTube — coming soon', disabled: true },
+  { value: 'Instagram', label: 'Instagram (Wire + Groq)', disabled: false },
+  { value: 'YouTube', label: 'YouTube (Wire)', disabled: false },
   { value: 'TikTok', label: 'TikTok — coming soon', disabled: true },
   { value: 'LinkedIn', label: 'LinkedIn — coming soon', disabled: true },
   { value: 'X', label: 'X (Twitter) — coming soon', disabled: true },
@@ -110,7 +110,8 @@ export default function SearchPanel({ onSearch, isLoading = false, error = null 
                 ))}
               </select>
               <p className="mt-1.5 text-xs text-stone-500">
-                Instagram is live today; other platforms are on the roadmap.
+                Discovery runs on Anakin Wire (Holocron). YouTube uses Wire directly; Instagram uses
+                Wire + Groq to extract handles.
               </p>
             </div>
             <div>
