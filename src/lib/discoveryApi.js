@@ -136,7 +136,12 @@ export function sortInfluencersByFollowersDesc(rows) {
   })
 }
 
-export async function fetchInstagramProfileEnrichment(username, { signal } = {}) {
+export async function fetchInstagramProfileEnrichment(username, { signal, platform } = {}) {
+  if (platform && String(platform).toLowerCase() === 'youtube') {
+    const err = new Error('Instagram enrichment is not available for YouTube creators')
+    err.code = 'PLATFORM_MISMATCH'
+    throw err
+  }
   const clean = cleanInstagramHandle(username)
   if (!isValidInstagramHandle(clean)) {
     const err = new Error('Invalid Instagram username')

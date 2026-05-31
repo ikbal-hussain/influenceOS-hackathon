@@ -64,8 +64,10 @@ export default function DashboardPage() {
     const rows = data?.influencers ?? []
     const mapped = rows.map((r) => {
       const cleaned = cleanSnippet(r.snippet)
-      const followerCount =
-        r.followerCount ?? parseFollowerCountFromText(r.snippet) ?? null
+      const isYouTube = String(r.platform || '').toLowerCase() === 'youtube'
+      const followerCount = isYouTube
+        ? (r.followerCount ?? null)
+        : (r.followerCount ?? parseFollowerCountFromText(r.snippet) ?? null)
       return { ...r, snippet: cleaned, followerCount }
     })
     return sortInfluencersByFollowersDesc(mapped)

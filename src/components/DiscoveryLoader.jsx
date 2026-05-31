@@ -89,7 +89,8 @@ export default function DiscoveryLoader({ summary = null }) {
         </ol>
 
         <p className="text-xs text-stone-500">
-          Quality matches take a moment—thanks for waiting.
+          Quality matches take a moment—YouTube searches can take up to 90s while channels
+          enrich. Thanks for waiting.
         </p>
       </div>
     </section>

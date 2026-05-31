@@ -209,7 +209,7 @@ function LatestPostCard({ post, index }) {
 
 const ENRICHMENT_FETCH_TIMEOUT_MS = 90_000
 
-function InstaProfileLiveBlock({ username, onLiveProfile, onLoadingChange }) {
+function InstaProfileLiveBlock({ username, platform, onLiveProfile, onLoadingChange }) {
   const [enrichment, setEnrichment] = useState(null)
   const [enrichError, setEnrichError] = useState(null)
   const [enrichLoading, setEnrichLoading] = useState(true)
@@ -228,7 +228,7 @@ function InstaProfileLiveBlock({ username, onLiveProfile, onLoadingChange }) {
       ac.abort()
     }, ENRICHMENT_FETCH_TIMEOUT_MS)
 
-    fetchInstagramProfileEnrichment(username, { signal: ac.signal })
+    fetchInstagramProfileEnrichment(username, { signal: ac.signal, platform })
       .then((body) => {
         if (cancelled) return
         setEnrichment(body)
@@ -399,8 +399,10 @@ export default function InfluencerDetailPage() {
     const rows = sortInfluencersByFollowersDesc(
       (data?.influencers ?? []).map((r) => {
         const cleaned = cleanSnippet(r.snippet)
-        const followerCount =
-          r.followerCount ?? parseFollowerCountFromText(r.snippet) ?? null
+        const isYouTube = String(r.platform || '').toLowerCase() === 'youtube'
+        const followerCount = isYouTube
+          ? (r.followerCount ?? null)
+          : (r.followerCount ?? parseFollowerCountFromText(r.snippet) ?? null)
         return { ...r, snippet: cleaned, followerCount }
       }),
     )
@@ -437,13 +439,106 @@ export default function InfluencerDetailPage() {
     )
   }
 
-  return <InstaProfileDetailInner row={row} query={query} />
+  const platform = String(row.platform || query?.platform || 'instagram').toLowerCase()
+  if (platform === 'youtube') {
+    return <YouTubeProfileDetailInner row={row} query={query} />
+  }
+  return <InstagramProfileDetailInner row={row} query={query} />
 }
 
-function InstaProfileDetailInner({ row, query }) {
-  const enrichHandle = isValidInstagramHandle(row.handle)
-    ? cleanInstagramHandle(row.handle)
+function YouTubeProfileDetailInner({ row, query }) {
+  const searchContext = query?.niche
+    ? `Brief: ${query.niche}${query.location ? ` · ${query.location}` : ''}`
     : null
+
+  return (
+    <article className="space-y-8">
+      <nav className="text-sm text-stone-500">
+        <Link to="/dashboard" className={linkAccent}>
+          Shortlist
+        </Link>
+        <span aria-hidden className="mx-2 text-stone-300">
+          /
+        </span>
+        <span className="text-stone-700">{row.handle ? `@${row.handle}` : row.name}</span>
+      </nav>
+
+      {searchContext ? <p className="text-sm text-stone-500">{searchContext}</p> : null}
+
+      <header className={`flex flex-col gap-6 ${cardSurface} p-6 sm:flex-row sm:items-start`}>
+        {row.avatarUrl ? (
+          <img
+            src={row.avatarUrl}
+            alt={row.name || 'YouTube channel'}
+            className="h-28 w-28 shrink-0 rounded-3xl object-cover ring-2 ring-white shadow-lg"
+            referrerPolicy="no-referrer"
+          />
+        ) : (
+          <div
+            className="flex h-28 w-28 shrink-0 items-center justify-center rounded-3xl bg-rose-100 text-2xl font-semibold text-rose-700 ring-2 ring-white shadow-lg"
+            aria-hidden
+          >
+            {(row.name || '?').slice(0, 2).toUpperCase()}
+          </div>
+        )}
+        <div className="min-w-0 flex-1">
+          <h1 className="font-serif text-2xl font-medium text-stone-900">{row.name}</h1>
+          {row.handle ? (
+            <p className="mt-1 text-sm font-medium text-rose-600">@{row.handle}</p>
+          ) : null}
+          <div className="mt-4 flex flex-wrap gap-3">
+            {row.profileUrl ? (
+              <a
+                href={row.profileUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={btnPrimary}
+              >
+                Open on YouTube
+              </a>
+            ) : null}
+          </div>
+        </div>
+      </header>
+
+      <section aria-labelledby="discovery-heading" className={`${cardSurface} p-6`}>
+        <h2 id="discovery-heading" className="text-sm font-medium text-rose-600">
+          From your search
+        </h2>
+        <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
+          <div>
+            <dt className="text-stone-500">Subscribers (discovery)</dt>
+            <dd className="font-semibold tabular-nums text-stone-900">
+              {formatFollowers(row.followerCount)}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-stone-500">Platform</dt>
+            <dd className="font-medium text-stone-900">YouTube</dd>
+          </div>
+        </dl>
+        {row.snippet ? (
+          <p className="mt-4 text-sm leading-relaxed text-stone-700">{row.snippet}</p>
+        ) : null}
+      </section>
+
+      <section className={`${cardSurface} p-6`}>
+        <h2 className="text-sm font-medium text-rose-600">Live profile</h2>
+        <p className="mt-3 text-sm text-stone-600">
+          YouTube live enrichment uses Anakin Wire during discovery (channel metadata and subscriber
+          scrape). Open the channel on YouTube for the latest stats and videos.
+        </p>
+      </section>
+    </article>
+  )
+}
+
+function InstagramProfileDetailInner({ row, query }) {
+  const enrichHandle =
+    String(row.platform || 'instagram').toLowerCase() !== 'youtube' &&
+    isValidInstagramHandle(row.handle)
+      ? cleanInstagramHandle(row.handle)
+      : null
   const [liveProfile, setLiveProfile] = useState(null)
   const [liveEnrichLoading, setLiveEnrichLoading] = useState(() => Boolean(enrichHandle))
   const handleEnrichLoading = useCallback((loading) => {
@@ -537,6 +632,7 @@ function InstaProfileDetailInner({ row, query }) {
           <InstaProfileLiveBlock
             key={enrichHandle}
             username={enrichHandle}
+            platform={row.platform}
             onLiveProfile={setLiveProfile}
             onLoadingChange={handleEnrichLoading}
           />
