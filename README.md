@@ -12,11 +12,13 @@ InfluenceOS is an AI-powered influencer discovery platform that helps brands fin
 
 Warm cream background with rose–orange gradients, serif headings, and rounded “editorial” cards (no zinc/teal utilitarian theme). Shared tokens live in `src/lib/uiClasses.js`. Global chrome is in `src/components/AppLayout.jsx`; the brand mark is a gradient “IO” badge in `src/components/BrandMark.jsx`. The shortlist page uses soft gradient heroes, rose chips, and pill-shaped primary buttons.
 
+**Marketing home sections** (`src/components/marketing/`): hero stat chips, discover search (`#discover`), pillars, how-it-works (`#how-it-works`), use cases (`#use-cases`), FAQ (`#faq`), and a CTA band. The home header shows anchor links to How it works and FAQ; `SiteFooter.jsx` is a multi-column dark footer with the same anchors plus GitHub repo links.
+
 ### Pages
 
 | Route        | File                              | Purpose                                                |
 |--------------|-----------------------------------|--------------------------------------------------------|
-| `/`          | `src/pages/LandingPage.jsx`       | Hero + `SearchPanel`. Submits the discovery query.     |
+| `/`          | `src/pages/LandingPage.jsx`       | Multi-section landing (hero, search, pillars, FAQ, CTA). |
 | `/dashboard` | `src/pages/DashboardPage.jsx`     | Ranked Instagram results from the backend.             |
 | `/influencer/:id` | `src/pages/InfluencerDetailPage.jsx` | Full row + optional live Instagram snapshot when enrichment is configured on the backend. |
 

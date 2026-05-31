@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import BrandMark from './BrandMark.jsx'
 import SiteFooter from './SiteFooter.jsx'
 
@@ -9,7 +9,13 @@ const navLinkClass = ({ isActive }) =>
       : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
   }`
 
+const anchorClass =
+  'hidden rounded-full px-3 py-1.5 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-100 hover:text-stone-900 sm:inline'
+
 export default function AppLayout() {
+  const { pathname } = useLocation()
+  const onHome = pathname === '/'
+
   return (
     <div className="flex min-h-svh flex-col text-stone-700">
       <header className="sticky top-0 z-20 border-b border-stone-200/80 bg-white/75 px-5 py-3 shadow-sm shadow-stone-200/30 backdrop-blur-md">
@@ -22,15 +28,22 @@ export default function AppLayout() {
             InfluenceOS
           </Link>
           <nav className="flex items-center gap-1" aria-label="Primary">
+            {onHome ? (
+              <>
+                <a href="#how-it-works" className={anchorClass}>
+                  How it works
+                </a>
+                <a href="#faq" className={anchorClass}>
+                  FAQ
+                </a>
+              </>
+            ) : null}
             <NavLink to="/" end className={navLinkClass}>
               Discover
             </NavLink>
             <NavLink to="/dashboard" className={navLinkClass}>
               Shortlist
             </NavLink>
-            <span className="hidden rounded-full px-3 py-1.5 text-sm text-stone-400 sm:inline">
-              Campaigns soon
-            </span>
           </nav>
         </div>
       </header>

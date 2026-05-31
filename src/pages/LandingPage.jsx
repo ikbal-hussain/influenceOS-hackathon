@@ -2,6 +2,11 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SearchPanel from '../components/SearchPanel.jsx'
 import DiscoveryLoader from '../components/DiscoveryLoader.jsx'
+import HowItWorksSection from '../components/marketing/HowItWorksSection.jsx'
+import UseCasesSection from '../components/marketing/UseCasesSection.jsx'
+import FaqSection from '../components/marketing/FaqSection.jsx'
+import CtaBand from '../components/marketing/CtaBand.jsx'
+import SectionHeader from '../components/marketing/SectionHeader.jsx'
 import { searchInstagramCreators } from '../lib/discoveryApi.js'
 import { LAST_SEARCH_KEY } from '../lib/discoverySnapshot.js'
 import { eyebrow, headingDisplay } from '../lib/uiClasses.js'
@@ -13,6 +18,12 @@ function buildLoaderSummary(query) {
   const who = query.audienceType ? ` for ${query.audienceType}` : ''
   return `${niche}${where}${who}`.trim()
 }
+
+const heroStats = [
+  { value: 'Minutes', label: 'to a ranked shortlist' },
+  { value: 'Evidence', label: 'backed Instagram handles' },
+  { value: 'Live', label: 'profile enrich optional' },
+]
 
 const pillars = [
   {
@@ -67,22 +78,37 @@ export default function LandingPage() {
         <h1 className={`mb-4 ${headingDisplay}`}>
           The right creators for your next campaign
         </h1>
-        <p className="mx-auto mb-2 max-w-2xl text-base leading-relaxed text-stone-600 md:mx-0">
+        <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-stone-600 md:mx-0">
           InfluenceOS surfaces Instagram creators who match your niche, market, and audience—
           with scores and context you can act on today.
         </p>
+        <ul className="flex flex-wrap justify-center gap-3 md:justify-start">
+          {heroStats.map((stat) => (
+            <li
+              key={stat.label}
+              className="rounded-2xl border border-stone-200/80 bg-white/90 px-4 py-3 text-left shadow-sm"
+            >
+              <p className="text-sm font-semibold text-rose-600">{stat.value}</p>
+              <p className="text-xs text-stone-500">{stat.label}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
-      <SearchPanel onSearch={handleSearch} isLoading={isLoading} error={error} />
+      <section id="discover" className="scroll-mt-24">
+        <SearchPanel onSearch={handleSearch} isLoading={isLoading} error={error} />
+        {isLoading ? (
+          <DiscoveryLoader summary={buildLoaderSummary(activeQuery)} />
+        ) : null}
+      </section>
 
-      {isLoading ? (
-        <DiscoveryLoader summary={buildLoaderSummary(activeQuery)} />
-      ) : null}
-
-      <section aria-labelledby="pillars-heading" className="mt-14">
-        <h2 id="pillars-heading" className="sr-only">
-          How it helps
-        </h2>
+      <section aria-labelledby="pillars-heading" className="mt-14 py-4">
+        <SectionHeader
+          id="pillars-heading"
+          label="Why InfluenceOS"
+          title="More than a follower count"
+          subtitle="Three pillars that guide every search and every row on your shortlist."
+        />
         <ul className="grid list-none gap-6 p-0 md:grid-cols-3">
           {pillars.map((item) => (
             <li
@@ -97,6 +123,11 @@ export default function LandingPage() {
           ))}
         </ul>
       </section>
+
+      <HowItWorksSection />
+      <UseCasesSection />
+      <FaqSection />
+      <CtaBand />
     </>
   )
 }
