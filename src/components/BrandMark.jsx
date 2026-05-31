@@ -10,7 +10,7 @@ export default function BrandMark({ size = 'md', className = '' }) {
       aria-hidden="true"
       className={`inline-flex shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-rose-500 to-orange-400 font-bold text-white shadow-md shadow-rose-400/35 ${dim} ${className}`.trim()}
     >
-      IO
+      CB
     </span>
   )
 }

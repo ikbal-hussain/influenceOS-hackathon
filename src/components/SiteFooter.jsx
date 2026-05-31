@@ -54,7 +54,7 @@ export default function SiteFooter() {
               className="flex items-center gap-2 font-serif text-lg font-medium text-white"
             >
               <BrandMark size="sm" />
-              InfluenceOS
+              CreatorBrief
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-stone-400">
               AI-assisted creator discovery for brands—match on niche, place, and audience, not
@@ -102,7 +102,7 @@ export default function SiteFooter() {
 
         <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="m-0 text-xs text-stone-500">
-            © {year} InfluenceOS. All rights reserved.
+            © {year} CreatorBrief. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-4 text-xs">
             <a

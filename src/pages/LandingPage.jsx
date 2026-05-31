@@ -79,8 +79,8 @@ export default function LandingPage() {
           The right creators for your next campaign
         </h1>
         <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-stone-600 md:mx-0">
-          InfluenceOS surfaces Instagram creators who match your niche, market, and audience—
-          with scores and context you can act on today.
+          CreatorBrief surfaces Instagram and YouTube creators who match your niche, market,
+          and audience—with evidence and context you can act on today.
         </p>
         <ul className="flex flex-wrap justify-center gap-3 md:justify-start">
           {heroStats.map((stat) => (
@@ -105,7 +105,7 @@ export default function LandingPage() {
       <section aria-labelledby="pillars-heading" className="mt-14 py-4">
         <SectionHeader
           id="pillars-heading"
-          label="Why InfluenceOS"
+          label="Why CreatorBrief"
           title="More than a follower count"
           subtitle="Three pillars that guide every search and every row on your shortlist."
         />

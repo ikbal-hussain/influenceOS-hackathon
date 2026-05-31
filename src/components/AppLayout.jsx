@@ -25,7 +25,7 @@ export default function AppLayout() {
             className="flex items-center gap-2.5 font-serif text-lg font-medium tracking-tight text-stone-900"
           >
             <BrandMark size="md" />
-            InfluenceOS
+            CreatorBrief
           </Link>
           <nav className="flex items-center gap-1" aria-label="Primary">
             {onHome ? (
